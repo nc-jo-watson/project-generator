@@ -26,4 +26,10 @@ describe("makeProjectWithCallbacks", () => {
 
     expect(files).toContain("myfile.txt");
   });
+  test("Initialises project with an index.js file in the root", async () => {
+    await makeProjectWithCallbacks(testProjectName);
+    const files = await fs.readdir(testProjectName);
+
+    expect(files).toContain("index.js");
+  });
 });
