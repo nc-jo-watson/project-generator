@@ -83,4 +83,16 @@ describe("makeProjectWithCallbacks", () => {
       expect(JSON.parse(packageJson).devDependencies).toHaveProperty("jest");
     });
   });
+  describe("Initialise git repo", () => {
+    test("If initGit is true, a git repo is initialised", async () => {
+      await makeProjectWithPromises(testProjectName, true);
+      const files = await fs.readdir(testProjectName);
+      expect(files).toContain(".git");
+    });
+    test("If initGit is fasle (default), a git repo is not initialised", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const files = await fs.readdir(testProjectName);
+      expect(files).not.toContain(".git");
+    });
+  });
 });
