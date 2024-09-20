@@ -68,4 +68,11 @@ describe("makeProjectWithCallbacks", () => {
       expect(subDirfiles).toContain("index.test.js");
     });
   });
+  describe("Initialise as npm project", () => {
+    test("Creates a package.json", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const files = await fs.readdir(testProjectName);
+      expect(files).toContain("package.json");
+    })
+  })
 });

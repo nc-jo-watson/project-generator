@@ -1,5 +1,7 @@
 const fs = require("fs/promises");
-const { exec } = require("node:child_process");
+const util = require("node:util");
+const exec = util.promisify(require("node:child_process").exec);
+
 const makeProjectWithCallbacks = async (projectName) => {
   return fs
     .mkdir(projectName, { recursive: true })
@@ -15,6 +17,9 @@ const makeProjectWithCallbacks = async (projectName) => {
     })
     .then(() => {
       return fs.writeFile(`${projectName}/__tests__/index.test.js`, "");
+    })
+    .then(() => {
+      return exec(`sh project-init.sh ${projectName}`);
     })
     .catch((err) => console.log(err));
 };
