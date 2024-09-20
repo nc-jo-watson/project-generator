@@ -73,6 +73,14 @@ describe("makeProjectWithCallbacks", () => {
       await makeProjectWithPromises(testProjectName);
       const files = await fs.readdir(testProjectName);
       expect(files).toContain("package.json");
-    })
-  })
+    });
+    test("jest is specified as a dev devependency", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const packageJson = await fs.readFile(
+        `${testProjectName}/package.json`,
+        "utf-8"
+      );
+      expect(JSON.parse(packageJson).devDependencies).toHaveProperty("jest");
+    });
+  });
 });
