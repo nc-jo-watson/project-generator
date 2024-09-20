@@ -10,7 +10,7 @@ describe("makeProjectWithCallbacks", () => {
   });
 
   test("When invoked with a path that does not exist, the directory is created", async () => {
-    await makeProjectWithCallbacks(testProjectName);
+    await makeProjectWithPromises(testProjectName);
 
     const files = await fs.readdir(".");
 
@@ -20,16 +20,36 @@ describe("makeProjectWithCallbacks", () => {
     await fs.mkdir(testProjectName);
     await fs.writeFile("test/myfile.txt", "", "utf8", () => {});
 
-    await makeProjectWithCallbacks(testProjectName);
+    await makeProjectWithPromises(testProjectName);
 
     const files = await fs.readdir(testProjectName);
 
     expect(files).toContain("myfile.txt");
   });
-  test("Initialises project with an index.js file in the root", async () => {
-    await makeProjectWithCallbacks(testProjectName);
-    const files = await fs.readdir(testProjectName);
+  describe("Files in root directory", () => {
+    test("Initialises project with an index.js file in the root", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const files = await fs.readdir(testProjectName);
 
-    expect(files).toContain("index.js");
+      expect(files).toContain("index.js");
+    });
+    test("Initialises project with a README.md file in the root", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const files = await fs.readdir(testProjectName);
+
+      expect(files).toContain("README.md");
+    });
+    test("Initialises project with an eslint.config.js file in the root", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const files = await fs.readdir(testProjectName);
+
+      expect(files).toContain("eslint.config.js");
+    });
+    test("Initialises project with an .gitignore file in the root", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const files = await fs.readdir(testProjectName);
+
+      expect(files).toContain(".gitignore");
+    });
   });
 });
