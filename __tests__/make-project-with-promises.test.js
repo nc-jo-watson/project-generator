@@ -52,4 +52,20 @@ describe("makeProjectWithCallbacks", () => {
       expect(files).toContain(".gitignore");
     });
   });
+  describe("Subdirectories", () => {
+    test("Initialises project with a spec subdirectory", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const files = await fs.readdir(testProjectName);
+
+      expect(files).toContain("spec");
+    });
+    test("Initialises project with an __tests__ subdirectory, which contains an index.test.js", async () => {
+      await makeProjectWithPromises(testProjectName);
+      const files = await fs.readdir(testProjectName);
+      expect(files).toContain("__tests__");
+
+      const subDirfiles = await fs.readdir(`${testProjectName}/__tests__`);
+      expect(subDirfiles).toContain("index.test.js");
+    });
+  });
 });
