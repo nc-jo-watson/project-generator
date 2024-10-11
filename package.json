@@ -11,7 +11,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "Based on this sprint: https://l2c.northcoders.com/courses/fun/callback-heaven#sectionId=projectGenerator,step=intro",
+  "description": "Generate a new npm project with an organised directory structure!",
   "devDependencies": {
     "jest": "^29.7.0",
     "start": "run-project-generator-promises.js"
