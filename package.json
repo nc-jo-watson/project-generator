@@ -8,11 +8,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Based on this sprint: https://l2c.northcoders.com/courses/fun/callback-heaven#sectionId=projectGenerator,step=intro",
   "devDependencies": {
     "jest": "^29.7.0"
   },
   "dependencies": {
-    "inquirer": "^11.0.2"
+    "@inquirer/prompts": "^5.0.2"
+  },
+  "directories": {
+    "test": "test"
   }
 }
