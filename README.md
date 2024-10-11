@@ -5,29 +5,28 @@ https://l2c.northcoders.com/courses/fun/callback-heaven#sectionId=projectGenerat
 
 I wanted to practice all the different ways to do async code. I wrote the tests with async await, and I planned to write the solution with both callbacks and promises.
 
-Requires _node_ and _git_
+This tool requires _Node.js_, _npm_ and _git_
 
 ### How to run the project generator
 
 1. Clone the repo
 
-2. Install dependencies
+2. Install globally
 
 ```
-npm i
+npm i -g
 ```
 
-3. Run the project generator by importing it into a script
-   e.g.
+3. Run the project generator
 
-```js
-const makeProjectWithPromises = require("../src/make-project-with-promises");
-
-makeProjectWithPromises("/my/favourite/file/path");
 ```
+generate-project
+```
+You should see the following output:
+![example output](./assets/demo.png)
 
-This will initialise a project in the specified directory with the following:
 
+This will initialise a project in the specified directory with:
 - An index.js
 - A spec folder
 - An index.test.js
@@ -38,7 +37,7 @@ This will initialise a project in the specified directory with the following:
 - A git repository initialised
 
 ### How to run the tests
-
+From the root directory of this repo, run:
 ```
 npm test promises
 ```
