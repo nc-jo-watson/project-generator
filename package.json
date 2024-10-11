@@ -13,8 +13,7 @@
   "license": "ISC",
   "description": "Generate a new npm project with an organised directory structure!",
   "devDependencies": {
-    "jest": "^29.7.0",
-    "start": "run-project-generator-promises.js"
+    "jest": "^29.7.0"
   },
   "dependencies": {
     "@inquirer/prompts": "^5.0.2"
