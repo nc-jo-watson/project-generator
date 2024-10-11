@@ -99,13 +99,17 @@ describe("makeProjectWithPromises", () => {
       );
     });
     test("Skips git initialisation and throws warning if git is already initialised", async () => {
+      const logSpy = jest.spyOn(console, "log");
+
+      await removeExistingProject();
+      await makeProjectWithPromises(testProjectName);
+      expect(logSpy).not.toHaveBeenCalledWith("git already initialised... skipping");
       await removeExistingProject();
       await fs.mkdir(testProjectName);
       await exec(`cd ${testProjectName}
         git init
         `);
 
-      const logSpy = jest.spyOn(console, "log");
       await makeProjectWithPromises(testProjectName, true);
       expect(logSpy).toHaveBeenCalledWith(
         "git already initialised... skipping"
