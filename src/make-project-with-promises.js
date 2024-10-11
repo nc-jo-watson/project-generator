@@ -49,7 +49,7 @@ const makeProjectWithCallbacks = async (projectName, initGit = false) => {
         initGit = false;
         console.log("git already initialised... skipping");
       }
-      return exec(`sh project-init.sh ${projectName} ${initGit}`);
+      return exec(`sh ${__dirname}/../project-init.sh ${projectName} ${initGit}`);
     })
     .then(() => {
       console.log("✨ Project generated! ✨");
