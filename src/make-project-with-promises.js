@@ -3,7 +3,9 @@ const util = require("node:util");
 const exec = util.promisify(require("node:child_process").exec);
 
 const makeProjectWithCallbacks = async (projectName, initGit = false) => {
-  console.log(`🤖 Generating project in directory '${projectName}'`);
+  console.log(`
+    🤖 Generating project in directory '${projectName}'
+    `);
   return fs
     .mkdir(projectName, { recursive: true })
     .then(() => {
@@ -25,7 +27,9 @@ const makeProjectWithCallbacks = async (projectName, initGit = false) => {
       });
       if (exists.length)
         return Promise.reject(
-          new Error(`File(s) already exist: ${exists.join(", ")}`)
+          new Error(`
+            File(s) already exist: ${exists.join(", ")}
+            `)
         );
 
       return Promise.all([
@@ -44,15 +48,22 @@ const makeProjectWithCallbacks = async (projectName, initGit = false) => {
       return fs.readdir(projectName);
     })
     .then((files) => {
-      console.log(`Created 🗂️ ${files.join(", ")}`);
+      console.log(`
+        Created 🗂️  ${files.join(", ")}
+        `);
+
       if (files.includes(".git") && initGit) {
         initGit = false;
-        console.log("git already initialised... skipping");
+        console.log(`
+          git already initialised... skipping
+          `);
       }
       return exec(`sh ${__dirname}/../project-init.sh ${projectName} ${initGit}`);
     })
     .then(() => {
-      console.log("✨ Project generated! ✨");
+      console.log(`
+        ✨ Project generated! ✨
+        `);
     });
 };
 

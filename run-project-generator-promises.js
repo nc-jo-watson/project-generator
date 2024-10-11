@@ -6,7 +6,9 @@ const makeProjectWithPromises = require("./src/make-project-with-promises");
 const queryFilePath = {
   type: "input",
   name: "filePath",
-  message: "What is the path of your new project?",
+  message: `
+  What is the path of your new project?
+  `,
   default: "/",
 };
 
