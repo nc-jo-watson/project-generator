@@ -41,7 +41,7 @@ const makeProjectWithCallbacks = async (projectName, initGit = false) => {
       return fs.writeFile(`${projectName}/__tests__/index.test.js`, "");
     })
     .then(() => {
-      return fs.readdir(testProjectName);
+      return fs.readdir(projectName);
     })
     .then((files) => {
       console.log(`Created 🗂️ ${files.join(", ")}`);
