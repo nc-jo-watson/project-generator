@@ -9,8 +9,12 @@ const queryFilePath = {
 };
 
 async function runProjectGenerator() {
-  input(queryFilePath).then((answer) => {
-    makeProjectWithPromises(answer);
-  });
+  input(queryFilePath)
+    .then((answer) => {
+      makeProjectWithPromises(answer);
+    })
+    .catch((err) => {
+      console.log("Error in input!");
+    });
 }
 runProjectGenerator();
