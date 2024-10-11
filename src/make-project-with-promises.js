@@ -6,6 +6,25 @@ const makeProjectWithCallbacks = async (projectName, initGit = false) => {
   return fs
     .mkdir(projectName, { recursive: true })
     .then(() => {
+      return fs.readdir(projectName);
+    })
+    .then((files) => {
+      const exists = files.filter((file) => {
+        return [
+          ".gitignore",
+          "README.md",
+          "__tests__",
+          "eslint.config.js",
+          "index.js",
+          "node_modules",
+          "package-lock.json",
+          "package.json",
+          "spec",
+        ].includes(file);
+      });
+      if (exists.length)
+        return Promise.reject(new Error(`File(s) already exist: ${exists.join(", ")}`));
+
       return Promise.all([
         fs.writeFile(`${projectName}/index.js`, "// new index.js"),
         fs.writeFile(`${projectName}/README.md`, "## New Project"),
@@ -21,7 +40,6 @@ const makeProjectWithCallbacks = async (projectName, initGit = false) => {
     .then(() => {
       return exec(`sh project-init.sh ${projectName} ${initGit}`);
     })
-    .catch((err) => console.log(err));
 };
 
 module.exports = makeProjectWithCallbacks;

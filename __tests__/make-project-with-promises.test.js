@@ -86,4 +86,16 @@ describe("makeProjectWithPromises", () => {
       });
     });
   });
+  describe("Error handling", () => {
+    beforeEach(async () => {
+      await removeExistingProject();
+      await makeProjectWithPromises(testProjectName);
+      files = await fs.readdir(testProjectName);
+    });
+    test("If any of the directories, .js files or .md files already exist in the root directory, throw an error message", async () => {
+      await expect(makeProjectWithPromises(testProjectName)).rejects.toThrow(
+        "File(s) already exist: .gitignore, README.md, __tests__, eslint.config.js, index.js, node_modules, package-lock.json, package.json, spec"
+      );
+    });
+  });
 });
