@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 const { input } = require("@inquirer/prompts");
 const makeProjectWithPromises = require("./src/make-project-with-promises");
 
