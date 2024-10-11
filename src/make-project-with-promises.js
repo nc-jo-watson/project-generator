@@ -23,7 +23,9 @@ const makeProjectWithCallbacks = async (projectName, initGit = false) => {
         ].includes(file);
       });
       if (exists.length)
-        return Promise.reject(new Error(`File(s) already exist: ${exists.join(", ")}`));
+        return Promise.reject(
+          new Error(`File(s) already exist: ${exists.join(", ")}`)
+        );
 
       return Promise.all([
         fs.writeFile(`${projectName}/index.js`, "// new index.js"),
@@ -38,8 +40,15 @@ const makeProjectWithCallbacks = async (projectName, initGit = false) => {
       return fs.writeFile(`${projectName}/__tests__/index.test.js`, "");
     })
     .then(() => {
-      return exec(`sh project-init.sh ${projectName} ${initGit}`);
+      return fs.readdir(testProjectName);
     })
+    .then((files) => {
+      if (files.includes(".git") && initGit) {
+        initGit = false;
+        console.log("git already initialised... skipping");
+      }
+      return exec(`sh project-init.sh ${projectName} ${initGit}`);
+    });
 };
 
 module.exports = makeProjectWithCallbacks;

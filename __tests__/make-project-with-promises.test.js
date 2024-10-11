@@ -1,6 +1,9 @@
 const makeProjectWithPromises = require("../src/make-project-with-promises");
 const fs = require("fs/promises");
 const { removeExistingProject } = require("./utils");
+const util = require("node:util");
+const { mkdir } = require("fs");
+const exec = util.promisify(require("node:child_process").exec);
 
 describe("makeProjectWithPromises", () => {
   beforeAll(() => {
@@ -87,15 +90,27 @@ describe("makeProjectWithPromises", () => {
     });
   });
   describe("Error handling", () => {
-    beforeEach(async () => {
+    test("If any of the directories, .js files or .md files already exist in the root directory, throw an error message", async () => {
       await removeExistingProject();
       await makeProjectWithPromises(testProjectName);
-      files = await fs.readdir(testProjectName);
-    });
-    test("If any of the directories, .js files or .md files already exist in the root directory, throw an error message", async () => {
+
       await expect(makeProjectWithPromises(testProjectName)).rejects.toThrow(
         "File(s) already exist: .gitignore, README.md, __tests__, eslint.config.js, index.js, node_modules, package-lock.json, package.json, spec"
       );
+    });
+    test("Skips git initialisation and throws warning if git is already initialised", async () => {
+      await removeExistingProject();
+      await fs.mkdir(testProjectName);
+      await exec(`cd ${testProjectName}
+        git init
+        `);
+
+      const logSpy = jest.spyOn(console, "log");
+      await makeProjectWithPromises(testProjectName, true);
+      expect(logSpy).toHaveBeenCalledWith(
+        "git already initialised... skipping"
+      );
+      logSpy.mockRestore();
     });
   });
 });
