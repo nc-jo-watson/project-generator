@@ -1,16 +1,20 @@
 {
   "name": "project-generator",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "run-project-generator-promises.js",
   "scripts": {
     "test": "jest"
+  },
+  "bin": {
+    "generate-project": "run-project-generator-promises.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "Based on this sprint: https://l2c.northcoders.com/courses/fun/callback-heaven#sectionId=projectGenerator,step=intro",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "start": "run-project-generator-promises.js"
   },
   "dependencies": {
     "@inquirer/prompts": "^5.0.2"
