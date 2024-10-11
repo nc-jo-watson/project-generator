@@ -1,8 +1,7 @@
 const makeProjectWithPromises = require("../src/make-project-with-promises");
-const fs = require("fs/promises");
 const { removeExistingProject } = require("./utils");
+const fs = require("fs/promises");
 const util = require("node:util");
-const { mkdir } = require("fs");
 const exec = util.promisify(require("node:child_process").exec);
 
 describe("makeProjectWithPromises", () => {
@@ -103,7 +102,9 @@ describe("makeProjectWithPromises", () => {
 
       await removeExistingProject();
       await makeProjectWithPromises(testProjectName);
-      expect(logSpy).not.toHaveBeenCalledWith("git already initialised... skipping");
+      expect(logSpy).not.toHaveBeenCalledWith(
+        "git already initialised... skipping"
+      );
       await removeExistingProject();
       await fs.mkdir(testProjectName);
       await exec(`cd ${testProjectName}
